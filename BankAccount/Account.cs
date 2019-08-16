@@ -9,13 +9,34 @@ namespace BankAccount
     /// <summary>
     /// Represents a customers bank account
     /// </summary>
-   public class Account
+    public class Account
     {
+        private string _accountNumber;
+
         // Name of account holder
         // Account number
         // Balance
-        public string AccountNumber { get; set; }
-
+        public string AccountNumber
+        {
+            get
+            {
+               return _accountNumber;
+            }
+            set
+            {
+                if (value == null)
+                {
+                    throw new ArgumentNullException
+                        ($"{nameof(AccountNumber)} cannot be null");
+                }
+                if (value.Contains("#"))
+                {
+                    throw new ArgumentException
+                        ($"{nameof(AccountNumber)} cannot contain # signs");
+                }
+                _accountNumber = value;
+            }
+        }
         public string Owner { get; set; }
 
         public double Balance { get; private set; }
@@ -29,6 +50,7 @@ namespace BankAccount
         {
             if (amt < 0)
                 throw new ArgumentException($"{nameof(amt)} cannot be negative");
+
             Balance += amt;
             return Balance;
         }
