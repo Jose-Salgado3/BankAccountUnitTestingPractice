@@ -117,13 +117,19 @@ namespace BankAccount.Tests
         [TestMethod]
         [DataRow("ABC#")]
         [DataRow("#ABC")]
-        [DataRow(null)]
         [DataRow("")]
         [DataRow("     ")]
-        public void AccountNum_SetInvalidAcc_ThrowsException(string invalidAcc)
+        public void AccountNum_SetInvalidAcc_ThrowsArgumentException(string invalidAcc)
         {
             //Split this into multiple tests with specific exceptions
-            Assert.ThrowsException<Exception>(() => acc.AccountNumber = invalidAcc);
+            Assert.ThrowsException<ArgumentException>(() => acc.AccountNumber = invalidAcc);
+        }
+
+        [TestMethod]
+        public void AccountNum_SetToNull_ThrowsAregumentException()
+        {
+            Assert.ThrowsException<ArgumentNullException>
+                (() => acc.AccountNumber = null);
         }
     }
 }

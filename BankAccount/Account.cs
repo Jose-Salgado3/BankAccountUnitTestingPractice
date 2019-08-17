@@ -29,7 +29,12 @@ namespace BankAccount
                     throw new ArgumentNullException
                         ($"{nameof(AccountNumber)} cannot be null");
                 }
-                if (value.Contains("#"))
+                if (value.Trim() == string.Empty)
+                {
+                    throw new ArgumentException("Empty/Whitespace is not allowed");
+                }
+                const string illegalCharacter = "#";
+                if (value.Contains(illegalCharacter))
                 {
                     throw new ArgumentException
                         ($"{nameof(AccountNumber)} cannot contain # signs");
